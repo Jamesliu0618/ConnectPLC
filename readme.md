@@ -16,14 +16,26 @@ ConnectPLC 是一個用於與多種 PLC (可程式邏輯控制器) 進行通訊�
 5. 使用「讀取」或「寫入」功能來操作 PLC 資料。
 
 ## 程式碼結構
-- `Form1.cs`: 主視窗邏輯，包含連線、讀取與寫入的操作。
+- `MainForm.cs`: 主視窗邏輯，包含連線、讀取與寫入的操作。
 - `PlcConnector.cs`: 負責與 PLC 進行通訊的核心類別。
 - `IConnectionStrategy.cs`: 定義 PLC 連線策略的介面。
 - `MitsubishiPlcConnectionStrategy.cs`, `SiemensPlcConnectionStrategy.cs`, `ABPlcConnectionStrategy.cs`, `OmronPlcConnectionStrategy.cs`: 各 PLC 型號的連線策略實作。
 
 ## 開發環境
-- .NET Framework
-- Visual Studio
+- .NET 8 (Windows Forms)
+- Visual Studio 2022 或以上
+- 僅支援 Windows 平台執行
+
+## 建構與執行
+1. 於 Windows 平台安裝 .NET 8 SDK 與 Visual Studio 2022 以上版本。
+2. 於專案目錄下執行：
+   ```
+   dotnet build
+   dotnet run
+   ```
+   或於 Visual Studio 直接開啟並執行。
+
+> 注意：本專案雖可在 Linux 進行建構，但僅能於 Windows 執行。
 
 ## 注意事項
 - 請確保輸入的 IP 位址與 Port 正確無誤。
