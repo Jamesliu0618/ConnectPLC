@@ -1,4 +1,5 @@
 using System;
+using System.Net.Sockets;
 using ConnectPLC;
 
 namespace ConnectPLC
@@ -7,26 +8,63 @@ namespace ConnectPLC
     public class MitsubishiPlcConnectionStrategy : IConnectionStrategy
     {
         public bool IsConnected { get; private set; }
+        private TcpClient _client;
+        private NetworkStream _stream;
         public bool Connect(string ip, int port)
         {
-            // TODO: Mitsubishi PLC連線邏輯
-            IsConnected = true;
+            // Mitsubishi PLC連線邏輯（以TCP為例）
+            try
+            {
+                _client = new TcpClient();
+                _client.Connect(ip, port);
+                _stream = _client.GetStream();
+                IsConnected = true;
+            }
+            catch
+            {
+                IsConnected = false;
+            }
             return IsConnected;
         }
         public void Disconnect()
         {
-            // TODO: 斷線邏輯
+            // Mitsubishi PLC斷線邏輯
+            if (_stream != null)
+                _stream.Close();
+            if (_client != null)
+                _client.Close();
             IsConnected = false;
         }
         public bool SendData(byte[] data)
         {
-            // TODO: 傳送資料邏輯
-            return true;
+            // Mitsubishi PLC傳送資料邏輯
+            if (!IsConnected || _stream == null) return false;
+            try
+            {
+                _stream.Write(data, 0, data.Length);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         public byte[] ReceiveData()
         {
-            // TODO: 接收資料邏輯
-            return new byte[0];
+            // Mitsubishi PLC接收資料邏輯
+            if (!IsConnected || _stream == null) return new byte[0];
+            try
+            {
+                byte[] buffer = new byte[256];
+                int bytesRead = _stream.Read(buffer, 0, buffer.Length);
+                byte[] result = new byte[bytesRead];
+                Array.Copy(buffer, result, bytesRead);
+                return result;
+            }
+            catch
+            {
+                return new byte[0];
+            }
         }
         public object ReadStatus(string address, PlcDataType dataType)
         {

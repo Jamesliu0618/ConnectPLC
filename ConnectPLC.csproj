@@ -80,6 +80,8 @@
     <Compile Include="SiemensPlcConnectionStrategy.cs" />
     <Compile Include="PlcConnector.cs" />
     <Compile Include="PlcCommandBuilder.cs" />
+    <Compile Include="ABPlcConnectionStrategy.cs" />
+    <Compile Include="OmronPlcConnectionStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

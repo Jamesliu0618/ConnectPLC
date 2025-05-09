@@ -4,15 +4,15 @@ using ConnectPLC;
 
 namespace ConnectPLC
 {
-    // Siemens PLC連接策略
-    public class SiemensPlcConnectionStrategy : IConnectionStrategy
+    // AB PLC連接策略
+    public class ABPlcConnectionStrategy : IConnectionStrategy
     {
         public bool IsConnected { get; private set; }
         private TcpClient _client;
         private NetworkStream _stream;
         public bool Connect(string ip, int port)
         {
-            // Siemens PLC連線邏輯（以TCP為例）
+            // AB PLC連線邏輯（以TCP為例）
             try
             {
                 _client = new TcpClient();
@@ -28,7 +28,7 @@ namespace ConnectPLC
         }
         public void Disconnect()
         {
-            // Siemens PLC斷線邏輯
+            // AB PLC斷線邏輯
             if (_stream != null)
                 _stream.Close();
             if (_client != null)
@@ -37,7 +37,7 @@ namespace ConnectPLC
         }
         public bool SendData(byte[] data)
         {
-            // Siemens PLC傳送資料邏輯
+            // AB PLC傳送資料邏輯
             if (!IsConnected || _stream == null) return false;
             try
             {
@@ -51,7 +51,7 @@ namespace ConnectPLC
         }
         public byte[] ReceiveData()
         {
-            // Siemens PLC接收資料邏輯
+            // AB PLC接收資料邏輯
             if (!IsConnected || _stream == null) return new byte[0];
             try
             {
@@ -68,22 +68,18 @@ namespace ConnectPLC
         }
         public object ReadStatus(string address, PlcDataType dataType)
         {
-            // 範例：組裝Siemens PLC讀取指令封包
             byte[] command = PlcCommandBuilder.BuildReadCommand(address, dataType);
             if (!SendData(command))
                 throw new Exception("PLC資料傳送失敗");
             byte[] response = ReceiveData();
-            // 解析回傳資料
             return PlcCommandBuilder.ParseReadResponse(response, dataType);
         }
         public bool WriteValue(string address, object value, PlcDataType dataType)
         {
-            // 範例：組裝Siemens PLC寫入指令封包
             byte[] command = PlcCommandBuilder.BuildWriteCommand(address, value, dataType);
             if (!SendData(command))
                 return false;
             byte[] response = ReceiveData();
-            // 解析回傳資料，判斷是否寫入成功
             return PlcCommandBuilder.ParseWriteResponse(response);
         }
     }
