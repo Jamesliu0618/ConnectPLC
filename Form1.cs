@@ -13,11 +13,11 @@ using ConnectPLC;
 
 namespace ConnectPLC
 {
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
 		private PlcConnector _plcConnector;
 
-		public Form1()
+		public MainForm()
 		{
 			InitializeComponent();
 

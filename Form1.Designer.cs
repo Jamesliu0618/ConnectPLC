@@ -1,6 +1,6 @@
 ﻿namespace ConnectPLC
 {
-	partial class Form1
+	partial class MainForm
 	{
 		/// <summary>
 		/// 設計工具所需的變數。
@@ -252,7 +252,7 @@
 			this.lblWriteValue.TabIndex = 6;
 			this.lblWriteValue.Text = "寫入值：";
 			// 
-			// Form1
+			 // MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -279,7 +279,7 @@
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
-			this.Name = "Form1";
+			this.Name = "MainForm";
 			this.Text = "PLC 通訊";
 			this.ResumeLayout(false);
 			this.PerformLayout();
